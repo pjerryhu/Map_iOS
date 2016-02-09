@@ -14,6 +14,7 @@
 		7BD449C91C694E9F00137D08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BD449C71C694E9F00137D08 /* LaunchScreen.storyboard */; };
 		7BD449D41C694E9F00137D08 /* Walk_SafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD449D31C694E9F00137D08 /* Walk_SafeTests.swift */; };
 		7BD449DF1C694E9F00137D08 /* Walk_SafeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD449DE1C694E9F00137D08 /* Walk_SafeUITests.swift */; };
+		7BD5ADCE1C6A3494008915B7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BD5ADCD1C6A3494008915B7 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		7BD449DA1C694E9F00137D08 /* Walk SafeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Walk SafeUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BD449DE1C694E9F00137D08 /* Walk_SafeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Walk_SafeUITests.swift; sourceTree = "<group>"; };
 		7BD449E01C694E9F00137D08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7BD5ADCD1C6A3494008915B7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BD5ADCE1C6A3494008915B7 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +80,7 @@
 		7BD449B21C694E9F00137D08 = {
 			isa = PBXGroup;
 			children = (
+				7BD5ADCD1C6A3494008915B7 /* MapKit.framework */,
 				7BD449BD1C694E9F00137D08 /* Walk Safe */,
 				7BD449D21C694E9F00137D08 /* Walk SafeTests */,
 				7BD449DD1C694E9F00137D08 /* Walk SafeUITests */,
@@ -482,6 +486,7 @@
 				7BD449E51C694E9F00137D08 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7BD449E61C694E9F00137D08 /* Build configuration list for PBXNativeTarget "Walk SafeTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +495,7 @@
 				7BD449E81C694E9F00137D08 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7BD449E91C694E9F00137D08 /* Build configuration list for PBXNativeTarget "Walk SafeUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +504,7 @@
 				7BD449EB1C694E9F00137D08 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

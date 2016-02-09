@@ -8,7 +8,7 @@
 
 import UIKit
 import MapKit
-
+import CoreLocation
 
 class ViewController: UIViewController {
 
@@ -31,6 +31,7 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     @IBAction func callMap(sender: UIButton) {
         MapInProgress.hidden = false
