@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VzW-LO-pB3">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <scenes>
+        <!--Map In-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Walk_Safe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map loading in progress" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yw-64-TwI">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p4C-Tm-OAC">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" image="maps to home"/>
+                                <connections>
+                                    <action selector="callMap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JfU-iU-FhV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jh7-fi-IRC">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" image="stopButton"/>
+                                <connections>
+                                    <action selector="StopMap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SYd-Ti-rN3"/>
+                                    <segue destination="DKl-Ht-DdG" kind="show" id="q2i-vT-vfo"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jh7-fi-IRC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7mt-Cv-q2u"/>
+                            <constraint firstItem="jh7-fi-IRC" firstAttribute="top" secondItem="7yw-64-TwI" secondAttribute="bottom" constant="132" id="8tN-1G-mPy"/>
+                            <constraint firstItem="7yw-64-TwI" firstAttribute="top" secondItem="p4C-Tm-OAC" secondAttribute="bottom" constant="52" id="Huk-BN-kAc"/>
+                            <constraint firstItem="p4C-Tm-OAC" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="R8J-M7-khI"/>
+                            <constraint firstItem="7yw-64-TwI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TRS-cx-0at"/>
+                            <constraint firstItem="p4C-Tm-OAC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eXz-PD-eGL"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="7yw-64-TwI"/>
+                                <exclude reference="p4C-Tm-OAC"/>
+                                <exclude reference="jh7-fi-IRC"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="7mt-Cv-q2u"/>
+                                <exclude reference="8tN-1G-mPy"/>
+                                <exclude reference="R8J-M7-khI"/>
+                                <exclude reference="eXz-PD-eGL"/>
+                                <exclude reference="Huk-BN-kAc"/>
+                                <exclude reference="TRS-cx-0at"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="7yw-64-TwI"/>
+                                <include reference="p4C-Tm-OAC"/>
+                                <include reference="jh7-fi-IRC"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="7mt-Cv-q2u"/>
+                                <include reference="8tN-1G-mPy"/>
+                                <include reference="R8J-M7-khI"/>
+                                <include reference="eXz-PD-eGL"/>
+                                <include reference="Huk-BN-kAc"/>
+                                <include reference="TRS-cx-0at"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="Map In" id="YK8-fM-igu"/>
+                    <connections>
+                        <outlet property="MapInProgress" destination="7yw-64-TwI" id="9by-dl-qn0"/>
+                        <outlet property="RecordButton" destination="p4C-Tm-OAC" id="70g-ph-bkN"/>
+                        <outlet property="StopButton" destination="jh7-fi-IRC" id="kcs-D0-Olk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1366.5" y="363"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="1OP-hE-epq">
+            <objects>
+                <viewController id="DKl-Ht-DdG" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c1C-X6-tD3"/>
+                        <viewControllerLayoutGuide type="bottom" id="vV6-xE-k2z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bzf-eW-h9L">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aBG-Mh-WGT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2191.5" y="356"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="UdN-5J-Lzy">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VzW-LO-pB3" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ORK-uA-hL4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="9vr-I2-k5R"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2w9-x2-MDE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="412.5" y="363"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="maps to home" width="64" height="38"/>
+        <image name="stopButton" width="100" height="100"/>
+    </resources>
+</document>
