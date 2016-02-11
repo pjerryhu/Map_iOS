@@ -12,12 +12,14 @@ import CoreLocation
 
 class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
-    var locationManager:CLLocationManager!
-    var mylocations: [CLLocation] = []
-
-
-
     @IBOutlet weak var mapView: MKMapView!
+    var locationManager:CLLocationManager!
+//    print(mapView.userLocation.coordinate)
+    var mylocations: [CLLocationCoordinate2D] = []
+//    var receiveLocation: CLLocation! = nil
+
+
+
 //    @IBOutlet weak var dropPin: UIToolbar!
 
     override func viewDidLoad() {
@@ -32,14 +34,8 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         mapView.delegate = self
 //        mapView.mapType = MKMapType.Satellite
         mapView.showsUserLocation = true
-
-        
-
     }
     
-    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
-        print(userLocation)
-    }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         switch status {
@@ -51,23 +47,31 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     }
 
     func locationManager( locationManager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
+        print(mylocations)
+        
+        let cllc2d1 = mapView.userLocation.coordinate;
+        if (cllc2d1.longitude != 0.0 && cllc2d1.latitude != 0.0){
+            mylocations.append(mapView.userLocation.coordinate)
+        }
+//        print("after append", mylocations)
 
-        mylocations.append(CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude:mapView.userLocation.coordinate.longitude))
+//        
+//        let spanX = 0.007
+//        let spanY = 0.007
+//        let newRegion = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpanMake(spanX, spanY))
+//        mapView.setRegion(newRegion, animated: true)
         
-        let spanX = 0.007
-        let spanY = 0.007
-        var newRegion = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpanMake(spanX, spanY))
-        mapView.setRegion(newRegion, animated: true)
-        
-        if (locations.count > 1){
-            var sourceIndex = locations.count - 1
-            var destinationIndex = locations.count - 2
+        if (mylocations.count > 1){
+            let sourceIndex = mylocations.count - 1
+            let destinationIndex = mylocations.count - 2
             
-            let c1 = locations[sourceIndex].coordinate
-            let c2 = locations[destinationIndex].coordinate
+            let c1 = mylocations[sourceIndex]
+            let c2 = mylocations[destinationIndex]
             var a = [c1, c2]
-            var polyline = MKPolyline(coordinates: &a, count: a.count)
+            let polyline = MKPolyline(coordinates: &a, count: a.count)
             mapView.addOverlay(polyline)
+        }else{
+            
         }
     }
     
@@ -75,7 +79,7 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     func mapView( mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer{
         
         if overlay is MKPolyline {
-            var polylineRenderer = MKPolylineRenderer(overlay: overlay)
+            let polylineRenderer = MKPolylineRenderer(overlay: overlay)
             polylineRenderer.strokeColor = UIColor.blueColor()
             polylineRenderer.lineWidth = 4
             return polylineRenderer
@@ -83,20 +87,4 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         return MKPolylineRenderer()
     }
 }
-    
-    
-    
-//    //
-//    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation:
-//        MKUserLocation) {
-//            let center = CLLocationCoordinate2D(latitude:
-//                userLocation.coordinate.latitude,
-//                longitude: userLocation.coordinate.longitude)
-//            let width = 1000.0 // meters
-//            let height = 1000.0
-//            let region = MKCoordinateRegionMakeWithDistance(center, width,
-//                height)
-//            mapView.setRegion(region, animated: true)
-//    }
-
 
