@@ -16,9 +16,11 @@ class ViewController: UIViewController {
     @IBOutlet var RecordButton: UIButton!
     @IBOutlet var MapInProgress: UILabel!
     @IBOutlet var StopButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
     }
     
 
