@@ -14,8 +14,14 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     
     @IBOutlet weak var mapView: MKMapView!
     var locationManager:CLLocationManager!
+    var placemark: CLPlacemark!
+
 //    print(mapView.userLocation.coordinate)
     var mylocations: [CLLocationCoordinate2D] = []
+    var geoLocations: [String] = []
+    let geocoder = CLGeocoder()
+    @IBOutlet weak var Geocoderswtich: UIButton!
+
 //    var receiveLocation: CLLocation! = nil
 
 
@@ -25,6 +31,7 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -34,8 +41,59 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         mapView.delegate = self
 //        mapView.mapType = MKMapType.Satellite
         mapView.showsUserLocation = true
+        
     }
-    
+    @IBAction func GeoCoderSwitch(sender: AnyObject) {
+//        print("GeoCoderSwitch triggered")
+//        self.geocoder.cancelGeocode()
+//        let location1 = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+
+        
+
+//        let longitude :CLLocationDegrees = -71.116746
+//        let latitude :CLLocationDegrees = 42.406995
+//        
+        let location1 = CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
+//        let location1 = CLLocation(latitude: latitude, longitude: longitude) //changed!!!
+//        print("switching this location: ",location1)
+
+        
+        
+        geocoder.reverseGeocodeLocation(location1, completionHandler: {(placemarks, error) -> Void in
+//            print(location1)
+            
+            if error != nil {
+                print("Reverse geocoder failed with error" + error!.localizedDescription)
+                return
+            }
+            if placemarks!.count > 0 {
+                let pm = placemarks![0] as CLPlacemark
+                
+                
+                print("pm.location", pm.location)
+                print("pm.name", pm.name)
+                print("pm.addressDictionary", pm.addressDictionary)
+                print("pm.ISOcountryCode", pm.ISOcountryCode)
+                print("pm.country", pm.country)
+                print("pm.postalCode", pm.postalCode)
+                print("pm.administrativeArea", pm.administrativeArea)
+                print("pm.subAdministrativeArea", pm.subAdministrativeArea)
+                print("pm.locality", pm.locality)
+                print("pm.subLocality", pm.subLocality)
+                print("pm.thoroughfare", pm.thoroughfare)
+                print("pm.subThoroughfare", pm.subThoroughfare)
+                print("pm.region", pm.region)
+//                print("pm.areasofInterest", pm.areasofInterest)
+                print("pm.inlandWater", pm.inlandWater)
+                print("pm.ocean", pm.ocean)
+            }
+                
+                
+            else {
+                print("Problem with the data received from geocoder")
+            }
+    })
+    }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         switch status {
@@ -46,9 +104,10 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         }
     }
 
+    
     func locationManager( locationManager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
-        print(mylocations)
-        
+//        print(mylocations)
+
         let cllc2d1 = mapView.userLocation.coordinate;
         if (cllc2d1.longitude != 0.0 && cllc2d1.latitude != 0.0){
             mylocations.append(mapView.userLocation.coordinate)
@@ -70,6 +129,9 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
             var a = [c1, c2]
             let polyline = MKPolyline(coordinates: &a, count: a.count)
             mapView.addOverlay(polyline)
+            
+            
+            
         }else{
             
         }

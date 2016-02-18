@@ -111,6 +111,19 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
                                     <barButtonItem systemItem="add" id="xWc-Ww-Oz4"/>
+                                    <barButtonItem style="plain" id="Sak-1O-1o7">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Xu1-Ee-Im8">
+                                            <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="GeoCoder Swtich"/>
+                                            <connections>
+                                                <action selector="GeoCoderSwitch:" destination="DKl-Ht-DdG" eventType="touchUpInside" id="X0Z-W6-VgV"/>
+                                            </connections>
+                                        </button>
+                                        <connections>
+                                            <action selector="GeoCoderSwitch:" destination="DKl-Ht-DdG" id="Dz8-XV-J0L"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                                 <connections>
                                     <outlet property="delegate" destination="DKl-Ht-DdG" id="kLd-lg-vKH"/>
@@ -174,6 +187,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="Geocoderswtich" destination="Xu1-Ee-Im8" id="dPR-zW-UIt"/>
                         <outlet property="mapView" destination="rFS-rL-otN" id="8Zo-f1-9sR"/>
                     </connections>
                 </viewController>
