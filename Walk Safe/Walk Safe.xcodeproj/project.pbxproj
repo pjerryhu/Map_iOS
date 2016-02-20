@@ -16,7 +16,6 @@
 		7BD449DF1C694E9F00137D08 /* Walk_SafeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD449DE1C694E9F00137D08 /* Walk_SafeUITests.swift */; };
 		7BD5ADCE1C6A3494008915B7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BD5ADCD1C6A3494008915B7 /* MapKit.framework */; };
 		7BFE175A1C6BDF26008EAA48 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE17591C6BDF26008EAA48 /* SecondViewController.swift */; };
-		7BFE175C1C6C01FD008EAA48 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE175B1C6C01FD008EAA48 /* Pin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +51,6 @@
 		7BD449E01C694E9F00137D08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7BD5ADCD1C6A3494008915B7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		7BFE17591C6BDF26008EAA48 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
-		7BFE175B1C6C01FD008EAA48 /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +110,6 @@
 				7BD449C71C694E9F00137D08 /* LaunchScreen.storyboard */,
 				7BD449CA1C694E9F00137D08 /* Info.plist */,
 				7BFE17591C6BDF26008EAA48 /* SecondViewController.swift */,
-				7BFE175B1C6C01FD008EAA48 /* Pin.swift */,
 			);
 			path = "Walk Safe";
 			sourceTree = "<group>";
@@ -269,7 +266,6 @@
 				7BFE175A1C6BDF26008EAA48 /* SecondViewController.swift in Sources */,
 				7BD449C11C694E9F00137D08 /* ViewController.swift in Sources */,
 				7BD449BF1C694E9F00137D08 /* AppDelegate.swift in Sources */,
-				7BFE175C1C6C01FD008EAA48 /* Pin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
