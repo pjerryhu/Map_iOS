@@ -124,10 +124,12 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
                 
                 
                 let intersecAdd = pm.addressDictionary?["FormattedAddressLines"]
-                let c = [intersecAdd?[0] as! String, intersecAdd?[1] as! String,intersecAdd?[2] as! String]
-                self.addressDisp.text = c.joinWithSeparator(", ")
+                if(intersecAdd!.count > 2){
+                    let c = [intersecAdd?[0] as! String, intersecAdd?[1] as! String,intersecAdd?[2] as! String]
+                    self.addressDisp.text = c.joinWithSeparator(", ")
 //                print( "self.addressDisp.text:", self.addressDisp.text!)
-                self.foundDash.text = "Not in intersection"
+                    self.foundDash.text = "Not in intersection"
+                }
                 
                 // Identify Intersections
                 if self.addressDisp.text!.containsString("–") {
