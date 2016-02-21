@@ -61,13 +61,12 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         let overlay = mapView.overlays
         mapView.removeOverlays(overlay)
         /*
-        need to send the information to the server
+        Need to send the information to the server
         */
         
         mylocations=[]
         IntersectionDataCLL = []
         IntersectionForServer = []
-        //        ServerLocations = []
         
     }
 //    @IBAction func GeoCoderSwitch(sender: AnyObject) {
