@@ -14,26 +14,33 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     
     @IBOutlet weak var foundDash: UILabel!
     @IBOutlet weak var addressDisp: UILabel!
+    @IBOutlet weak var NumberOfDetectedIntersection: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     var locationManager:CLLocationManager!
     var placemark: CLPlacemark!
+    var FLAG_recording = 0;
+    var IntersectionForServer:[[Double]] = []
+    
 
-//    print(mapView.userLocation.coordinate)
+    
+    
+    //    print(mapView.userLocation.coordinate)
+    var IntersectionDataCLL: [CLLocation] = []
     var mylocations: [CLLocationCoordinate2D] = []
     var geoLocations: [String] = []
     let geocoder = CLGeocoder()
     @IBOutlet weak var Geocoderswtich: UIButton!
-
-//    var receiveLocation: CLLocation! = nil
-
-
-
-//    @IBOutlet weak var dropPin: UIToolbar!
-
+    
+    //    var receiveLocation: CLLocation! = nil
+    
+    
+    
+    //    @IBOutlet weak var dropPin: UIToolbar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
+        
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -41,74 +48,115 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         mapView.delegate = self
-//        mapView.mapType = MKMapType.Satellite
+        //        mapView.mapType = MKMapType.Satellite
         mapView.showsUserLocation = true
         mapView.addSubview(addressDisp)
         addressDisp.translatesAutoresizingMaskIntoConstraints=false
     }
-    @IBAction func GeoCoderSwitch(sender: AnyObject) {
-//        print("GeoCoderSwitch triggered")
-//        self.geocoder.cancelGeocode()
-//        let location1 = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-
+    @IBAction func StartRecording(sender: AnyObject) {
+        FLAG_recording = 1
+    }
+    @IBAction func FinishRecording(sender: AnyObject) {
+        FLAG_recording = 0
+        let overlay = mapView.overlays
+        mapView.removeOverlays(overlay)
+        /*
+        need to send the information to the server
+        */
         
-
-//        let longitude :CLLocationDegrees = -71.116746
-//        let latitude :CLLocationDegrees = 42.406995
+        mylocations=[]
+        IntersectionDataCLL = []
+        IntersectionForServer = []
+        //        ServerLocations = []
+        
+    }
+//    @IBAction func GeoCoderSwitch(sender: AnyObject) {
 //        
+//        let location1 = CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
+//        
+//        geocoder.reverseGeocodeLocation(location1, completionHandler: {(placemarks, error) -> Void in
+//            
+//            if error != nil {
+//                print("Reverse geocoder failed with error" + error!.localizedDescription)
+//                return
+//            }
+//            if placemarks!.count > 0 {
+//                let pm = placemarks![0] as CLPlacemark
+//                
+//                let intersecAdd = pm.addressDictionary?["FormattedAddressLines"]
+//                
+//                let c = [intersecAdd?[0] as! String, intersecAdd?[1] as! String,intersecAdd?[2] as! String]
+//                self.addressDisp.text = c.joinWithSeparator(", ")
+////                print( "self.addressDisp.text:", self.addressDisp.text!)
+//                self.foundDash.text = "Not in intersection"
+//                if self.addressDisp.text!.containsString("–") {
+//                    
+//                    
+//                    self.foundDash.text = "found intersection"
+//                    let tempLoc = CLLocation(latitude: self.mapView.userLocation.coordinate.latitude, longitude: self.mapView.userLocation.coordinate.longitude)
+//                    if(self.IntersectionDataCLL.count < 1){
+//                        self.IntersectionDataCLL.append(tempLoc)
+//                    }else{
+//                        if(self.IntersectionDataCLL[ self.IntersectionDataCLL.endIndex-1].distanceFromLocation(tempLoc) > 30){
+//                            self.foundDash.text = "NewIntersectionFound"
+//                            self.IntersectionDataCLL.append(tempLoc)
+//                        }
+//                    }
+//                }
+//            }
+//            else {
+//                print("Problem with the data received from geocoder")
+//            }
+//        })
+//        
+//    }
+//    
+    func findIntersection(){
         let location1 = CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
-//        let location1 = CLLocation(latitude: latitude, longitude: longitude) //changed!!!
-//        print("switching this location: ",location1)
-
-        
         
         geocoder.reverseGeocodeLocation(location1, completionHandler: {(placemarks, error) -> Void in
-//            print(location1)
             
             if error != nil {
-                print("Reverse geocoder failed with error" + error!.localizedDescription)
+                print("In findIntersection(), Reverse geocoder failed with error " + error!.localizedDescription)
                 return
             }
             if placemarks!.count > 0 {
                 let pm = placemarks![0] as CLPlacemark
-
-//                print("pm.location", pm.location)
-//                print("pm.name", pm.name)
+                
+                
                 let intersecAdd = pm.addressDictionary?["FormattedAddressLines"]
-//                let intersecAdd1 = pm.addressDictionary?["FormattedAddressLines"]?[1]
-//                let intersecAdd2 = pm.addressDictionary?["FormattedAddressLines"]?[2]
-//                let intersecAdd3 = pm.addressDictionary?["FormattedAddressLines"]?[3]
-
                 let c = [intersecAdd?[0] as! String, intersecAdd?[1] as! String,intersecAdd?[2] as! String]
                 self.addressDisp.text = c.joinWithSeparator(", ")
-                print( "self.addressDisp.text:", self.addressDisp.text!)
+//                print( "self.addressDisp.text:", self.addressDisp.text!)
                 self.foundDash.text = "Not in intersection"
+                
+                // Identify Intersections
                 if self.addressDisp.text!.containsString("–") {
-                    self.foundDash.text = "intersection found!!"
+                    self.foundDash.text = "found intersection"
+                    
+                    //compare the CLLocation of the current intersection with previous identified intersections, if they are they same, then do not add to new intersection list
+                    let tempLoc = CLLocation(latitude: self.mapView.userLocation.coordinate.latitude, longitude: self.mapView.userLocation.coordinate.longitude)
+                    if(self.IntersectionDataCLL.count < 1){
+                        self.IntersectionDataCLL.append(tempLoc)
+                        self.IntersectionForServer.append([tempLoc.coordinate.latitude, tempLoc.coordinate.longitude])
+                    }else{
+                        if(self.IntersectionDataCLL[ self.IntersectionDataCLL.endIndex-1].distanceFromLocation(tempLoc) > 30){
+                            self.foundDash.text = "NewIntersectionFound"
+                            self.IntersectionDataCLL.append(tempLoc)
+                            self.IntersectionForServer.append([tempLoc.coordinate.latitude, tempLoc.coordinate.longitude])
+                            print(self.IntersectionForServer)
+                            self.NumberOfDetectedIntersection.text = String(self.IntersectionForServer.count)
+                        }
+                    }
                 }
-
-
-                
-//                let intersecAdd2 = (FormattedAddressLines: pm.addressDictionary)
-//                print("intersecAdd2", intersecAdd2)
-//                print("pm.ISOcountryCode", pm.ISOcountryCode)
-//                print("pm.country", pm.country)
-//                print("pm.postalCode", pm.postalCode)
-//                print("pm.administrativeArea", pm.administrativeArea)
-//                print("pm.subAdministrativeArea", pm.subAdministrativeArea)
-//                print("pm.locality", pm.locality)
-//                print("pm.subLocality", pm.subLocality)
-//                print("pm.thoroughfare", pm.thoroughfare)
-//                print("pm.subThoroughfare", pm.subThoroughfare)
-//                print("pm.region", pm.region)
             }
-                
-                
             else {
                 print("Problem with the data received from geocoder")
             }
-    })
+        })
+        
     }
+    
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         switch status {
@@ -118,37 +166,40 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         default: break
         }
     }
-
+    
     
     func locationManager( locationManager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
-//        print(mylocations)
-
-        let cllc2d1 = mapView.userLocation.coordinate;
-        if (cllc2d1.longitude != 0.0 && cllc2d1.latitude != 0.0){
-            mylocations.append(mapView.userLocation.coordinate)
-        }
-//        print("after append", mylocations)
-
-//        
-//        let spanX = 0.007
-//        let spanY = 0.007
-//        let newRegion = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpanMake(spanX, spanY))
-//        mapView.setRegion(newRegion, animated: true)
         
-        if (mylocations.count > 1){
-            let sourceIndex = mylocations.count - 1
-            let destinationIndex = mylocations.count - 2
+        
+        if (FLAG_recording == 1) {
+            let cllc2d1 = mapView.userLocation.coordinate;
+            //        let cllc2d1CLL = CLLocation(latitude: cllc2d1.latitude, longitude: cllc2d1.longitude )
+            if (cllc2d1.longitude != 0.0 && cllc2d1.latitude != 0.0){
+                mylocations.append(mapView.userLocation.coordinate)
+                
+                //            IntersectionDataCLL.append(cllc2d1CLL)
+            }
+            //        print("after append", mylocations)
             
-            let c1 = mylocations[sourceIndex]
-            let c2 = mylocations[destinationIndex]
-            var a = [c1, c2]
-            let polyline = MKPolyline(coordinates: &a, count: a.count)
-            mapView.addOverlay(polyline)
+            //
+            //        let spanX = 0.007
+            //        let spanY = 0.007
+            //        let newRegion = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpanMake(spanX, spanY))
+            //        mapView.setRegion(newRegion, animated: true)
             
+            if (mylocations.count > 5){
+                let sourceIndex = mylocations.count - 1
+                let destinationIndex = mylocations.count - 2
+                
+                let c1 = mylocations[sourceIndex]
+                let c2 = mylocations[destinationIndex]
+                var a = [c1, c2]
+                let polyline = MKPolyline(coordinates: &a, count: a.count)
+                mapView.addOverlay(polyline)
+                findIntersection()
+                
             
-            
-        }else{
-            
+            }
         }
     }
     

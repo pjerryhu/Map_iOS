@@ -116,13 +116,7 @@
                                             <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="GeoCoder Swtich"/>
-                                            <connections>
-                                                <action selector="GeoCoderSwitch:" destination="DKl-Ht-DdG" eventType="touchUpInside" id="X0Z-W6-VgV"/>
-                                            </connections>
                                         </button>
-                                        <connections>
-                                            <action selector="GeoCoderSwitch:" destination="DKl-Ht-DdG" id="Dz8-XV-J0L"/>
-                                        </connections>
                                     </barButtonItem>
                                 </items>
                                 <connections>
@@ -135,7 +129,7 @@
                                     <constraint firstAttribute="width" constant="400" id="5Zw-dT-O36"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -154,7 +148,7 @@
                                     <constraint firstAttribute="height" constant="48" id="RFD-TC-Bo4"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -167,18 +161,55 @@
                                     </mask>
                                 </variation>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TPn-AA-Orc">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="StartRecording:" destination="DKl-Ht-DdG" eventType="touchUpInside" id="Z7j-Gg-6To"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tnf-Dm-Ra1">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Finish"/>
+                                <connections>
+                                    <action selector="FinishRecording:" destination="DKl-Ht-DdG" eventType="touchUpInside" id="7dv-Iv-IIa"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBm-GE-aSc">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="69" id="PnW-VR-21z"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="PnW-VR-21z"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="PnW-VR-21z"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="rFS-rL-otN" firstAttribute="leading" secondItem="bzf-eW-h9L" secondAttribute="leading" id="1rU-ib-pqB"/>
                             <constraint firstItem="XFT-Ay-wjT" firstAttribute="top" secondItem="pkY-xX-tcf" secondAttribute="bottom" id="2lW-jY-dVW"/>
+                            <constraint firstItem="TPn-AA-Orc" firstAttribute="top" secondItem="rFS-rL-otN" secondAttribute="bottom" constant="6" id="5dE-jG-tww"/>
                             <constraint firstItem="pkY-xX-tcf" firstAttribute="top" secondItem="c1C-X6-tD3" secondAttribute="bottom" constant="381" id="7bf-RY-NwK"/>
+                            <constraint firstItem="Tnf-Dm-Ra1" firstAttribute="leading" secondItem="Zom-WX-K79" secondAttribute="trailing" constant="-48" id="8Zv-k7-FZT"/>
                             <constraint firstItem="XFT-Ay-wjT" firstAttribute="leading" secondItem="rFS-rL-otN" secondAttribute="leading" id="8cq-Ek-vC9"/>
                             <constraint firstItem="Zom-WX-K79" firstAttribute="top" secondItem="pkY-xX-tcf" secondAttribute="bottom" constant="13" id="DgC-Mw-Iek"/>
                             <constraint firstItem="XFT-Ay-wjT" firstAttribute="top" secondItem="rFS-rL-otN" secondAttribute="bottom" constant="-44" id="E4o-aZ-Dke">
                                 <variation key="widthClass=compact" constant="107"/>
                             </constraint>
+                            <constraint firstItem="Tnf-Dm-Ra1" firstAttribute="leading" secondItem="OBm-GE-aSc" secondAttribute="trailing" constant="13" id="ET3-HP-SG6"/>
                             <constraint firstItem="XFT-Ay-wjT" firstAttribute="top" secondItem="pkY-xX-tcf" secondAttribute="bottom" id="FrO-bE-3WC"/>
+                            <constraint firstItem="Tnf-Dm-Ra1" firstAttribute="top" secondItem="TPn-AA-Orc" secondAttribute="bottom" constant="23" id="Gb9-5l-Flg"/>
                             <constraint firstItem="pkY-xX-tcf" firstAttribute="width" secondItem="rFS-rL-otN" secondAttribute="width" id="JmW-37-LRv"/>
                             <constraint firstItem="pkY-xX-tcf" firstAttribute="leading" secondItem="rFS-rL-otN" secondAttribute="leading" id="LDZ-oz-UGP"/>
                             <constraint firstItem="pkY-xX-tcf" firstAttribute="trailing" secondItem="XFT-Ay-wjT" secondAttribute="trailing" id="Lxb-h7-Rje"/>
@@ -199,9 +230,12 @@
                             <constraint firstItem="pkY-xX-tcf" firstAttribute="width" secondItem="rFS-rL-otN" secondAttribute="width" id="emk-ef-adU"/>
                             <constraint firstAttribute="trailing" secondItem="rFS-rL-otN" secondAttribute="trailing" id="fDx-J8-rF8"/>
                             <constraint firstItem="Zom-WX-K79" firstAttribute="leading" secondItem="XFT-Ay-wjT" secondAttribute="leading" id="fZn-rj-UYo"/>
+                            <constraint firstItem="TPn-AA-Orc" firstAttribute="leading" secondItem="pkY-xX-tcf" secondAttribute="trailing" constant="-45" id="me0-wG-qJa"/>
                             <constraint firstItem="rFS-rL-otN" firstAttribute="bottom" secondItem="vV6-xE-k2z" secondAttribute="top" id="pG9-eV-WyJ">
                                 <variation key="widthClass=compact" constant="-151"/>
                             </constraint>
+                            <constraint firstItem="OBm-GE-aSc" firstAttribute="centerY" secondItem="Tnf-Dm-Ra1" secondAttribute="centerY" id="saT-mN-x0t"/>
+                            <constraint firstItem="OBm-GE-aSc" firstAttribute="top" secondItem="pkY-xX-tcf" secondAttribute="bottom" constant="8" symbolic="YES" id="sgk-gx-JPv"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -209,6 +243,9 @@
                                 <exclude reference="XFT-Ay-wjT"/>
                                 <exclude reference="pkY-xX-tcf"/>
                                 <exclude reference="Zom-WX-K79"/>
+                                <exclude reference="TPn-AA-Orc"/>
+                                <exclude reference="Tnf-Dm-Ra1"/>
+                                <exclude reference="OBm-GE-aSc"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="1rU-ib-pqB"/>
@@ -235,6 +272,13 @@
                                 <exclude reference="bXY-Op-6r8"/>
                                 <exclude reference="dVp-bo-duw"/>
                                 <exclude reference="eXm-dk-7xQ"/>
+                                <exclude reference="saT-mN-x0t"/>
+                                <exclude reference="sgk-gx-JPv"/>
+                                <exclude reference="5dE-jG-tww"/>
+                                <exclude reference="me0-wG-qJa"/>
+                                <exclude reference="8Zv-k7-FZT"/>
+                                <exclude reference="ET3-HP-SG6"/>
+                                <exclude reference="Gb9-5l-Flg"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -243,6 +287,9 @@
                                 <include reference="XFT-Ay-wjT"/>
                                 <include reference="pkY-xX-tcf"/>
                                 <include reference="Zom-WX-K79"/>
+                                <include reference="TPn-AA-Orc"/>
+                                <include reference="Tnf-Dm-Ra1"/>
+                                <include reference="OBm-GE-aSc"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="1rU-ib-pqB"/>
@@ -269,11 +316,18 @@
                                 <exclude reference="bXY-Op-6r8"/>
                                 <exclude reference="dVp-bo-duw"/>
                                 <include reference="eXm-dk-7xQ"/>
+                                <include reference="saT-mN-x0t"/>
+                                <include reference="sgk-gx-JPv"/>
+                                <include reference="5dE-jG-tww"/>
+                                <include reference="me0-wG-qJa"/>
+                                <include reference="8Zv-k7-FZT"/>
+                                <include reference="ET3-HP-SG6"/>
+                                <include reference="Gb9-5l-Flg"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="Geocoderswtich" destination="Xu1-Ee-Im8" id="dPR-zW-UIt"/>
+                        <outlet property="NumberOfDetectedIntersection" destination="OBm-GE-aSc" id="NLs-oe-KEK"/>
                         <outlet property="addressDisp" destination="pkY-xX-tcf" id="AVS-QR-auj"/>
                         <outlet property="foundDash" destination="Zom-WX-K79" id="CPP-z5-qKd"/>
                         <outlet property="mapView" destination="rFS-rL-otN" id="8Zo-f1-9sR"/>
