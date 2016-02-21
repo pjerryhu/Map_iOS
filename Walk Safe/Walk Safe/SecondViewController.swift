@@ -139,6 +139,9 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
                         self.IntersectionDataCLL.append(tempLoc)
                         self.IntersectionForServer.append([tempLoc.coordinate.latitude, tempLoc.coordinate.longitude])
                     }else{
+                        
+                        //If the new intersection is farther than 30 meters away, then it's a new one
+                        //also need to check if the formatted address is the same, it would probably significantly lower the false positive number
                         if(self.IntersectionDataCLL[ self.IntersectionDataCLL.endIndex-1].distanceFromLocation(tempLoc) > 30){
                             self.foundDash.text = "NewIntersectionFound"
                             self.IntersectionDataCLL.append(tempLoc)
