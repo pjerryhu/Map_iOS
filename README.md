@@ -15,7 +15,7 @@ Once you press finish, all the previous data will be wiped out, it is assumed th
 
 For collaborators: please modify function FinishRecording to add client-server interaction functionality.
 
-
+//
 Tips for simulation from 2/15:
 
 Once the simulator is up and running, you can click on the American Flag, and then hit the stop button to login the MapView.
