@@ -127,6 +127,7 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
                                 self.IntersectionForServer.append([tempLoc.coordinate.latitude, tempLoc.coordinate.longitude])
                                 print(self.IntersectionForServer)
                                 self.NumberOfDetectedIntersection.text = String(self.IntersectionForServer.count)
+                                self.FirstState = 1
                             }
                         }
                     }
