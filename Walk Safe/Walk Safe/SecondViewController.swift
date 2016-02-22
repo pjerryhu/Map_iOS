@@ -12,6 +12,7 @@ import CoreLocation
 
 class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
+    @IBOutlet weak var NumberOfStreetCrossed: UILabel!
     @IBOutlet weak var foundDash: UILabel!
     @IBOutlet weak var addressDisp: UILabel!
     @IBOutlet weak var NumberOfDetectedIntersection: UILabel!
@@ -20,7 +21,10 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     var placemark: CLPlacemark!
     var FLAG_recording = 0;
     var IntersectionForServer:[[Double]] = []
+    var StreetForServer:[[Double]] = []
     var AddressBook:[String] = []
+    var State: Int!;
+    var FirstState = 1;
     
 
     
@@ -69,7 +73,11 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         IntersectionDataCLL = []
         IntersectionForServer = []
         AddressBook = []
-        
+        StreetForServer = []
+        addressDisp.text = "Restart"
+        foundDash.text = "Restart"
+        NumberOfDetectedIntersection.text = "0"
+        NumberOfStreetCrossed.text = "0"
     }
 
     func findIntersection(){
@@ -122,6 +130,44 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
                             }
                         }
                     }
+                }else{
+                    //if no dash found, check current state is either even or odd
+                    // determine address parity
+                    
+                    
+//                    print(self.addressDisp.text!)
+                    //read to space, store number for parity checking
+                    let fullNameAdd = self.addressDisp.text!.characters.split{$0 == " "}.map(String.init)
+                    
+                    //If first string of Address line contains numbers, then we count the crossing
+                    if var currState = Int(fullNameAdd[0]){
+                        currState = currState%2
+//                    print("currState is ", currState)
+                    
+                    if(self.FirstState == 1){
+                        //set state based on street parity
+                        //set FirstState to 0
+                        self.State = currState
+                        self.FirstState = 0
+                    }
+                    if(self.State == 0){
+                        self.evenState(currState)
+                        //When State is even --> call evenState with parameter of current address
+                        //   - checks parity of current address.
+                        //      a) if even - do nothing
+                        //      b) if odd - call crossStreet function, set State to odd
+
+                    }else{
+                        self.oddState(currState)
+                    //If State is odd --> call oddState with parameter of current address
+                    //   - check parity of current address 
+                    //     a) if even - call crossStreet function set State to even
+                    //     b) if odd - do nothing
+                    }
+                    // crossStreet function - put down a marker at current coords, add pointto streets crossed array
+                    print("self.State is ", self.State)
+                    print("self.StreetForServer is ", self.StreetForServer)
+                    }
                 }
             }
             else {
@@ -129,6 +175,28 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
             }
         })
         
+    }
+    func evenState(parity: Int){
+        if (parity == 1){
+            //if parity is odd
+            self.State = parity;
+            crossStreet()
+        }
+    }
+    
+    func oddState(parity: Int){
+        if (parity == 0){
+            //if parity is even
+            self.State = parity;
+            crossStreet()
+        }
+    }
+    
+    func crossStreet(){
+        //add info into data structure
+        self.StreetForServer += [[self.mapView.userLocation.coordinate.latitude, self.mapView.userLocation.coordinate.longitude]]
+        self.NumberOfStreetCrossed.text = String( self.StreetForServer.count)
+//        print("I'm here")
     }
     
     
