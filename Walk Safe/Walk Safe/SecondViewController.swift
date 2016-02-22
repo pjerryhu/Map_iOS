@@ -20,6 +20,7 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     var placemark: CLPlacemark!
     var FLAG_recording = 0;
     var IntersectionForServer:[[Double]] = []
+    var AddressBook:[String] = []
     
 
     
@@ -67,49 +68,10 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         mylocations=[]
         IntersectionDataCLL = []
         IntersectionForServer = []
+        AddressBook = []
         
     }
-//    @IBAction func GeoCoderSwitch(sender: AnyObject) {
-//        
-//        let location1 = CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
-//        
-//        geocoder.reverseGeocodeLocation(location1, completionHandler: {(placemarks, error) -> Void in
-//            
-//            if error != nil {
-//                print("Reverse geocoder failed with error" + error!.localizedDescription)
-//                return
-//            }
-//            if placemarks!.count > 0 {
-//                let pm = placemarks![0] as CLPlacemark
-//                
-//                let intersecAdd = pm.addressDictionary?["FormattedAddressLines"]
-//                
-//                let c = [intersecAdd?[0] as! String, intersecAdd?[1] as! String,intersecAdd?[2] as! String]
-//                self.addressDisp.text = c.joinWithSeparator(", ")
-////                print( "self.addressDisp.text:", self.addressDisp.text!)
-//                self.foundDash.text = "Not in intersection"
-//                if self.addressDisp.text!.containsString("–") {
-//                    
-//                    
-//                    self.foundDash.text = "found intersection"
-//                    let tempLoc = CLLocation(latitude: self.mapView.userLocation.coordinate.latitude, longitude: self.mapView.userLocation.coordinate.longitude)
-//                    if(self.IntersectionDataCLL.count < 1){
-//                        self.IntersectionDataCLL.append(tempLoc)
-//                    }else{
-//                        if(self.IntersectionDataCLL[ self.IntersectionDataCLL.endIndex-1].distanceFromLocation(tempLoc) > 30){
-//                            self.foundDash.text = "NewIntersectionFound"
-//                            self.IntersectionDataCLL.append(tempLoc)
-//                        }
-//                    }
-//                }
-//            }
-//            else {
-//                print("Problem with the data received from geocoder")
-//            }
-//        })
-//        
-//    }
-//    
+
     func findIntersection(){
         let location1 = CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
         
@@ -124,10 +86,10 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
                 
                 
                 let intersecAdd = pm.addressDictionary?["FormattedAddressLines"]
+                
                 if(intersecAdd!.count > 2){
                     let c = [intersecAdd?[0] as! String, intersecAdd?[1] as! String,intersecAdd?[2] as! String]
                     self.addressDisp.text = c.joinWithSeparator(", ")
-//                print( "self.addressDisp.text:", self.addressDisp.text!)
                     self.foundDash.text = "Not in intersection"
                 }
                 
@@ -138,18 +100,26 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
                     //compare the CLLocation of the current intersection with previous identified intersections, if they are they same, then do not add to new intersection list
                     let tempLoc = CLLocation(latitude: self.mapView.userLocation.coordinate.latitude, longitude: self.mapView.userLocation.coordinate.longitude)
                     if(self.IntersectionDataCLL.count < 1){
+                        //the first address with dash is always added to ensure that the app dont crash because of index out of bound
                         self.IntersectionDataCLL.append(tempLoc)
                         self.IntersectionForServer.append([tempLoc.coordinate.latitude, tempLoc.coordinate.longitude])
+                        self.AddressBook.append(self.addressDisp.text!)
                     }else{
-                        
+
+                        //First condition
                         //If the new intersection is farther than 30 meters away, then it's a new one
-                        //also need to check if the formatted address is the same, it would probably significantly lower the false positive number
                         if(self.IntersectionDataCLL[ self.IntersectionDataCLL.endIndex-1].distanceFromLocation(tempLoc) > 30){
-                            self.foundDash.text = "NewIntersectionFound"
-                            self.IntersectionDataCLL.append(tempLoc)
-                            self.IntersectionForServer.append([tempLoc.coordinate.latitude, tempLoc.coordinate.longitude])
-                            print(self.IntersectionForServer)
-                            self.NumberOfDetectedIntersection.text = String(self.IntersectionForServer.count)
+                            //Second condition: the address(with dash) has to be a new one in the address book
+                            if(self.AddressBook.contains(self.addressDisp.text!)){
+                            }else{
+                                self.foundDash.text = "NewIntersectionFound"
+                                self.IntersectionDataCLL.append(tempLoc)
+                                self.AddressBook.append(self.addressDisp.text!)
+                            
+                                self.IntersectionForServer.append([tempLoc.coordinate.latitude, tempLoc.coordinate.longitude])
+                                print(self.IntersectionForServer)
+                                self.NumberOfDetectedIntersection.text = String(self.IntersectionForServer.count)
+                            }
                         }
                     }
                 }
