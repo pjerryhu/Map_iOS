@@ -93,10 +93,10 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
                 let pm = placemarks![0] as CLPlacemark
                 
                 
-                let intersecAdd = pm.addressDictionary?["FormattedAddressLines"]
+                let intersecAdd:[String] = pm.addressDictionary?["FormattedAddressLines"] as! [String]
                 
-                if(intersecAdd!.count > 2){
-                    let c = [intersecAdd?[0] as! String, intersecAdd?[1] as! String,intersecAdd?[2] as! String]
+                if(intersecAdd.count > 2){
+                    let c = [intersecAdd[0] as! String, intersecAdd[1] as! String,intersecAdd[2] as! String]
                     self.addressDisp.text = c.joinWithSeparator(", ")
                     self.foundDash.text = "Not in intersection"
                 }
